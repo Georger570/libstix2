@@ -2,6 +2,8 @@
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/freetaxii/libstix2)](https://goreportcard.com/report/github.com/freetaxii/libstix2) [![GoDoc](https://godoc.org/github.com/freetaxii/libstix2?status.png)](https://godoc.org/github.com/freetaxii/libstix2)
 
+## NOTE: THIS IS FORK OF freetaxii/libstix2 WITH MONGODB SUPPORT
+
 libstix2 an API for generating JSON based STIX objects and TAXII messages with 
 the Go (Golang) programming language. Please see the examples directory and the 
 README files in each of the sub packages for more information. This API is built 
