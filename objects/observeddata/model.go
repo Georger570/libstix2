@@ -21,12 +21,12 @@ object. All of the methods not defined local to this type are inherited from the
 individual properties.
 */
 type ObservedData struct {
-	objects.CommonObjectProperties
-	FirstObserved  string `json:"first_observed,omitempty" bson:"first_observed,omitempty"`
-	LastObserved   string `json:"last_observed,omitempty" bson:"last_observed,omitempty"`
-	NumberObserved int    `json:"number_observed,omitempty" bson:"number_observed,omitempty"`
-	Objects        string `json:"objects,omitempty" bson:"objects,omitempty"`
-	properties.ObjectRefsProperty
+	objects.CommonObjectProperties `bson:",inline"`
+	FirstObserved                  string `json:"first_observed,omitempty" bson:"first_observed,omitempty"`
+	LastObserved                   string `json:"last_observed,omitempty" bson:"last_observed,omitempty"`
+	NumberObserved                 int    `json:"number_observed,omitempty" bson:"number_observed,omitempty"`
+	Objects                        string `json:"objects,omitempty" bson:"objects,omitempty"`
+	properties.ObjectRefsProperty  `bson:",inline"`
 }
 
 /*

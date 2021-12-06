@@ -21,14 +21,14 @@ the methods not defined local to this type are inherited from the individual
 properties.
 */
 type Sighting struct {
-	objects.CommonObjectProperties
-	properties.DescriptionProperty
-	properties.SeenProperties
-	Count            int      `json:"count,omitempty" bson:"count,omitempty"`
-	SightingOfRef    string   `json:"sighting_of_ref,omitempty" bson:"sighting_of_ref,omitempty"`
-	ObservedDataRefs []string `json:"observed_data_refs,omitempty" bson:"observed_data_refs,omitempty"`
-	WhereSightedRefs []string `json:"where_sighted_refs,omitempty" bson:"where_sighted_refs,omitempty"`
-	Summary          bool     `json:"summary,omitempty" bson:"summary,omitempty"`
+	objects.CommonObjectProperties `bson:",inline"`
+	properties.DescriptionProperty `bson:",inline"`
+	properties.SeenProperties      `bson:",inline"`
+	Count                          int      `json:"count,omitempty" bson:"count,omitempty"`
+	SightingOfRef                  string   `json:"sighting_of_ref,omitempty" bson:"sighting_of_ref,omitempty"`
+	ObservedDataRefs               []string `json:"observed_data_refs,omitempty" bson:"observed_data_refs,omitempty"`
+	WhereSightedRefs               []string `json:"where_sighted_refs,omitempty" bson:"where_sighted_refs,omitempty"`
+	Summary                        bool     `json:"summary,omitempty" bson:"summary,omitempty"`
 }
 
 /*

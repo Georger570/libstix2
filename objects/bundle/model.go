@@ -22,8 +22,8 @@ methods not defined local to this type are inherited from the individual
 properties.
 */
 type Bundle struct {
-	objects.CommonObjectProperties
-	Objects []objects.STIXObject `json:"objects,omitempty" bson:"objects,omitempty"`
+	objects.CommonObjectProperties `bson:",inline"`
+	Objects                        []objects.STIXObject `json:"objects,omitempty" bson:"objects,omitempty"`
 }
 
 /*

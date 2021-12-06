@@ -21,11 +21,11 @@ object. All of the methods not defined local to this type are inherited from the
 individual properties.
 */
 type Note struct {
-	objects.CommonObjectProperties
-	Abstract string `json:"abstract,omitempty" bson:"abstract,omitempty"`
-	Content  string `json:"content,omitempty" bson:"content,omitempty"`
-	properties.AuthorsProperty
-	properties.ObjectRefsProperty
+	objects.CommonObjectProperties `bson:",inline"`
+	Abstract                       string `json:"abstract,omitempty" bson:"abstract,omitempty"`
+	Content                        string `json:"content,omitempty" bson:"content,omitempty"`
+	properties.AuthorsProperty     `bson:",inline"`
+	properties.ObjectRefsProperty  `bson:",inline"`
 }
 
 /*

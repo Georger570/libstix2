@@ -21,12 +21,12 @@ the methods not defined local to this type are inherited from the individual
 properties.
 */
 type Campaign struct {
-	objects.CommonObjectProperties
-	properties.NameProperty
-	properties.DescriptionProperty
-	properties.AliasesProperty
-	properties.SeenProperties
-	Objective string `json:"objective,omitempty" bson:"objective,omitempty"`
+	objects.CommonObjectProperties `bson:",inline"`
+	properties.NameProperty        `bson:",inline"`
+	properties.DescriptionProperty `bson:",inline"`
+	properties.AliasesProperty     `bson:",inline"`
+	properties.SeenProperties      `bson:",inline"`
+	Objective                      string `json:"objective,omitempty" bson:"objective,omitempty"`
 }
 
 /*

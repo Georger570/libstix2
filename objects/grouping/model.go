@@ -21,11 +21,11 @@ the methods not defined local to this type are inherited from the individual
 properties.
 */
 type Grouping struct {
-	objects.CommonObjectProperties
-	properties.NameProperty
-	properties.DescriptionProperty
-	Context string `json:"context,omitempty" bson:"context,omitempty"`
-	properties.ObjectRefsProperty
+	objects.CommonObjectProperties `bson:",inline"`
+	properties.NameProperty        `bson:",inline"`
+	properties.DescriptionProperty `bson:",inline"`
+	Context                        string `json:"context,omitempty" bson:"context,omitempty"`
+	properties.ObjectRefsProperty  `bson:",inline"`
 }
 
 /*
