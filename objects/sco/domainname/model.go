@@ -21,9 +21,9 @@ All of the methods not defined local to this type are inherited from the
 individual properties.
 */
 type DomainName struct {
-	objects.CommonObjectProperties
-	properties.ValueProperty
-	properties.ResolvesToRefsProperty
+	objects.CommonObjectProperties    `bson:",inline"`
+	properties.ValueProperty          `bson:",inline"`
+	properties.ResolvesToRefsProperty `bson:",inline"`
 }
 
 /*

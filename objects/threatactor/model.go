@@ -21,18 +21,18 @@ All of the methods not defined local to this type are inherited from the
 individual properties.
 */
 type ThreatActor struct {
-	objects.CommonObjectProperties
-	properties.NameProperty
-	properties.DescriptionProperty
-	ThreatActorTypes []string `json:"threat_actor_types,omitempty" bson:"threat_actor_types,omitempty"`
-	properties.AliasesProperty
-	properties.SeenProperties
-	properties.RolesProperty
-	properties.GoalsProperty
-	Sophistication string `json:"sophistication,omitempty" bson:"sophistication,omitempty"`
-	properties.ResourceLevelProperty
-	properties.MotivationProperties
-	PersonalMotivations []string `json:"personal_motivations,omitempty" bson:"personal_motivations,omitempty"`
+	objects.CommonObjectProperties   `bson:",inline"`
+	properties.NameProperty          `bson:",inline"`
+	properties.DescriptionProperty   `bson:",inline"`
+	ThreatActorTypes                 []string `json:"threat_actor_types,omitempty" bson:"threat_actor_types,omitempty"`
+	properties.AliasesProperty       `bson:",inline"`
+	properties.SeenProperties        `bson:",inline"`
+	properties.RolesProperty         `bson:",inline"`
+	properties.GoalsProperty         `bson:",inline"`
+	Sophistication                   string `json:"sophistication,omitempty" bson:"sophistication,omitempty"`
+	properties.ResourceLevelProperty `bson:",inline"`
+	properties.MotivationProperties  `bson:",inline"`
+	PersonalMotivations              []string `json:"personal_motivations,omitempty" bson:"personal_motivations,omitempty"`
 }
 
 /*

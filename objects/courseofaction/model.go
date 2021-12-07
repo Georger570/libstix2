@@ -21,9 +21,9 @@ object. All of the methods not defined local to this type are inherited from the
 individual properties.
 */
 type CourseOfAction struct {
-	objects.CommonObjectProperties
-	properties.NameProperty
-	properties.DescriptionProperty
+	objects.CommonObjectProperties `bson:",inline"`
+	properties.NameProperty        `bson:",inline"`
+	properties.DescriptionProperty `bson:",inline"`
 }
 
 // TODO Finish fleshing out this model to 2.1

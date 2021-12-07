@@ -21,13 +21,13 @@ object. All of the methods not defined local to this type are inherited from the
 individual properties.
 */
 type Identity struct {
-	objects.CommonObjectProperties
-	properties.NameProperty
-	properties.DescriptionProperty
-	properties.RolesProperty
-	IdentityClass      string   `json:"identity_class,omitempty" bson:"identity_class,omitempty"`
-	Sectors            []string `json:"sectors,omitempty" bson:"sectors,omitempty"`
-	ContactInformation string   `json:"contact_information,omitempty" bson:"contact_information,omitempty"`
+	objects.CommonObjectProperties `bson:",inline"`
+	properties.NameProperty        `bson:",inline"`
+	properties.DescriptionProperty `bson:",inline"`
+	properties.RolesProperty       `bson:",inline"`
+	IdentityClass                  string   `json:"identity_class,omitempty" bson:"identity_class,omitempty"`
+	Sectors                        []string `json:"sectors,omitempty" bson:"sectors,omitempty"`
+	ContactInformation             string   `json:"contact_information,omitempty" bson:"contact_information,omitempty"`
 }
 
 /*

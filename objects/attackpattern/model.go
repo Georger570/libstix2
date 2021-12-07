@@ -21,11 +21,11 @@ object. All of the methods not defined local to this type are inherited from the
 individual properties.
 */
 type AttackPattern struct {
-	objects.CommonObjectProperties
-	properties.NameProperty
-	properties.DescriptionProperty
-	properties.AliasesProperty
-	properties.KillChainPhasesProperty
+	objects.CommonObjectProperties     `bson:",inline"`
+	properties.NameProperty            `bson:",inline"`
+	properties.DescriptionProperty     `bson:",inline"`
+	properties.AliasesProperty         `bson:",inline"`
+	properties.KillChainPhasesProperty `bson:",inline"`
 }
 
 /*

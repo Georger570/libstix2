@@ -21,10 +21,10 @@ All of the methods not defined local to this type are inherited from the
 individual properties.
 */
 type IPv4Addr struct {
-	objects.CommonObjectProperties
-	properties.ValueProperty
-	properties.ResolvesToRefsProperty
-	properties.BelongsToRefsProperty
+	objects.CommonObjectProperties    `bson:",inline"`
+	properties.ValueProperty          `bson:",inline"`
+	properties.ResolvesToRefsProperty `bson:",inline"`
+	properties.BelongsToRefsProperty  `bson:",inline"`
 }
 
 /*

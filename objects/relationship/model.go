@@ -21,13 +21,13 @@ All of the methods not defined local to this type are inherited from the
 individual properties.
 */
 type Relationship struct {
-	objects.CommonObjectProperties
-	RelationshipType string `json:"relationship_type,omitempty" bson:"relationship_type,omitempty"`
-	properties.DescriptionProperty
-	SourceRef string `json:"source_ref,omitempty" bson:"source_ref,omitempty"`
-	TargetRef string `json:"target_ref,omitempty" bson:"target_ref,omitempty"`
-	StartTime string `json:"start_time,omitempty" bson:"start_time,omitempty"`
-	StopTime  string `json:"stop_time,omitempty" bson:"stop_time,omitempty"`
+	objects.CommonObjectProperties `bson:",inline"`
+	RelationshipType               string `json:"relationship_type,omitempty" bson:"relationship_type,omitempty"`
+	properties.DescriptionProperty `bson:",inline"`
+	SourceRef                      string `json:"source_ref,omitempty" bson:"source_ref,omitempty"`
+	TargetRef                      string `json:"target_ref,omitempty" bson:"target_ref,omitempty"`
+	StartTime                      string `json:"start_time,omitempty" bson:"start_time,omitempty"`
+	StopTime                       string `json:"stop_time,omitempty" bson:"stop_time,omitempty"`
 }
 
 /*

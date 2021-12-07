@@ -36,21 +36,21 @@ of object. This was done so that we would only need one type that could be used
 by all objects, to simplify the code.
 */
 type CommonObjectProperties struct {
-	properties.DatastoreIDProperty
-	properties.TypeProperty
-	properties.SpecVersionProperty
-	properties.IDProperty
-	properties.CreatedByRefProperty
-	properties.CreatedProperty
-	properties.ModifiedProperty
-	properties.RevokedProperty
-	properties.LabelsProperty
-	properties.ConfidenceProperty
-	properties.LangProperty
-	properties.ExternalReferencesProperty
-	properties.MarkingProperties
-	properties.CustomProperties
-	properties.RawProperty
+	properties.DatastoreIDProperty        `bson:",inline"`
+	properties.TypeProperty               `bson:",inline"`
+	properties.SpecVersionProperty        `bson:",inline"`
+	properties.IDProperty                 `bson:",inline"`
+	properties.CreatedByRefProperty       `bson:",inline"`
+	properties.CreatedProperty            `bson:",inline"`
+	properties.ModifiedProperty           `bson:",inline"`
+	properties.RevokedProperty            `bson:",inline"`
+	properties.LabelsProperty             `bson:",inline"`
+	properties.ConfidenceProperty         `bson:",inline"`
+	properties.LangProperty               `bson:",inline"`
+	properties.ExternalReferencesProperty `bson:",inline"`
+	properties.MarkingProperties          `bson:",inline"`
+	properties.CustomProperties           `bson:",inline"`
+	properties.RawProperty                `bson:",inline"`
 }
 
 /*

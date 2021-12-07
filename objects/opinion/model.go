@@ -21,11 +21,11 @@ methods not defined local to this type are inherited from the individual
 properties.
 */
 type Opinion struct {
-	objects.CommonObjectProperties
-	Explanation string `json:"explanation,omitempty" bson:"explanation,omitempty"`
-	properties.AuthorsProperty
-	Opinion string `json:"opinion,omitempty" bson:"opinion,omitempty"`
-	properties.ObjectRefsProperty
+	objects.CommonObjectProperties `bson:",inline"`
+	Explanation                    string `json:"explanation,omitempty" bson:"explanation,omitempty"`
+	properties.AuthorsProperty     `bson:",inline"`
+	Opinion                        string `json:"opinion,omitempty" bson:"opinion,omitempty"`
+	properties.ObjectRefsProperty  `bson:",inline"`
 }
 
 /*

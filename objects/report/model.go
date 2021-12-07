@@ -21,12 +21,12 @@ methods not defined local to this type are inherited from the individual
 properties.
 */
 type Report struct {
-	objects.CommonObjectProperties
-	properties.NameProperty
-	properties.DescriptionProperty
-	ReportTypes []string `json:"report_types,omitempty" bson:"report_types,omitempty"`
-	Published   string   `json:"published,omitempty" bson:"published,omitempty"`
-	properties.ObjectRefsProperty
+	objects.CommonObjectProperties `bson:",inline"`
+	properties.NameProperty        `bson:",inline"`
+	properties.DescriptionProperty `bson:",inline"`
+	ReportTypes                    []string `json:"report_types,omitempty" bson:"report_types,omitempty"`
+	Published                      string   `json:"published,omitempty" bson:"published,omitempty"`
+	properties.ObjectRefsProperty  `bson:",inline"`
 }
 
 /*

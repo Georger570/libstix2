@@ -21,13 +21,13 @@ object. All of the methods not defined local to this type are inherited from the
 individual properties.
 */
 type Infrastructure struct {
-	objects.CommonObjectProperties
-	properties.NameProperty
-	properties.DescriptionProperty
-	InfrastructureTypes []string `json:"infrastructure_types,omitempty" bson:"infrastructure_types,omitempty"`
-	properties.AliasesProperty
-	properties.KillChainPhasesProperty
-	properties.SeenProperties
+	objects.CommonObjectProperties     `bson:",inline"`
+	properties.NameProperty            `bson:",inline"`
+	properties.DescriptionProperty     `bson:",inline"`
+	InfrastructureTypes                []string `json:"infrastructure_types,omitempty" bson:"infrastructure_types,omitempty"`
+	properties.AliasesProperty         `bson:",inline"`
+	properties.KillChainPhasesProperty `bson:",inline"`
+	properties.SeenProperties          `bson:",inline"`
 }
 
 /*

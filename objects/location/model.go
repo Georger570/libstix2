@@ -21,18 +21,18 @@ object. All of the methods not defined local to this type are inherited from the
 individual properties.
 */
 type Location struct {
-	objects.CommonObjectProperties
-	properties.NameProperty
-	properties.DescriptionProperty
-	Latitude           float64 `json:"latitude,omitempty" bson:"latitude,omitempty"`
-	Longitude          float64 `json:"longitude,omitempty" bson:"longitude,omitempty"`
-	Precision          float64 `json:"precision,omitempty" bson:"precision,omitempty"`
-	Region             string  `json:"region,omitempty" bson:"region,omitempty"`
-	Country            string  `json:"country,omitempty" bson:"country,omitempty"`
-	AdministrativeArea string  `json:"administrative_area,omitempty" bson:"administrative_area,omitempty"`
-	City               string  `json:"city,omitempty" bson:"city,omitempty"`
-	StreetAddress      string  `json:"street_address,omitempty" bson:"street_address,omitempty"`
-	PostalCode         string  `json:"postal_code,omitempty" bson:"postal_code,omitempty"`
+	objects.CommonObjectProperties `bson:",inline"`
+	properties.NameProperty        `bson:",inline"`
+	properties.DescriptionProperty `bson:",inline"`
+	Latitude                       float64 `json:"latitude,omitempty" bson:"latitude,omitempty"`
+	Longitude                      float64 `json:"longitude,omitempty" bson:"longitude,omitempty"`
+	Precision                      float64 `json:"precision,omitempty" bson:"precision,omitempty"`
+	Region                         string  `json:"region,omitempty" bson:"region,omitempty"`
+	Country                        string  `json:"country,omitempty" bson:"country,omitempty"`
+	AdministrativeArea             string  `json:"administrative_area,omitempty" bson:"administrative_area,omitempty"`
+	City                           string  `json:"city,omitempty" bson:"city,omitempty"`
+	StreetAddress                  string  `json:"street_address,omitempty" bson:"street_address,omitempty"`
+	PostalCode                     string  `json:"postal_code,omitempty" bson:"postal_code,omitempty"`
 }
 
 /*

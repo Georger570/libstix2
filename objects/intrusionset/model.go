@@ -21,14 +21,14 @@ All of the methods not defined local to this type are inherited from the
 individual properties.
 */
 type IntrusionSet struct {
-	objects.CommonObjectProperties
-	properties.NameProperty
-	properties.DescriptionProperty
-	properties.AliasesProperty
-	properties.SeenProperties
-	properties.GoalsProperty
-	properties.ResourceLevelProperty
-	properties.MotivationProperties
+	objects.CommonObjectProperties   `bson:",inline"`
+	properties.NameProperty          `bson:",inline"`
+	properties.DescriptionProperty   `bson:",inline"`
+	properties.AliasesProperty       `bson:",inline"`
+	properties.SeenProperties        `bson:",inline"`
+	properties.GoalsProperty         `bson:",inline"`
+	properties.ResourceLevelProperty `bson:",inline"`
+	properties.MotivationProperties  `bson:",inline"`
 }
 
 /*

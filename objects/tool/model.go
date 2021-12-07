@@ -21,13 +21,13 @@ methods not defined local to this type are inherited from the individual
 properties.
 */
 type Tool struct {
-	objects.CommonObjectProperties
-	properties.NameProperty
-	properties.DescriptionProperty
-	ToolTypes []string `json:"tool_types,omitempty" bson:"tool_types,omitempty"`
-	properties.AliasesProperty
-	properties.KillChainPhasesProperty
-	ToolVersion string `json:"tool_version,omitempty" bson:"tool_version,omitempty"`
+	objects.CommonObjectProperties     `bson:",inline"`
+	properties.NameProperty            `bson:",inline"`
+	properties.DescriptionProperty     `bson:",inline"`
+	ToolTypes                          []string `json:"tool_types,omitempty" bson:"tool_types,omitempty"`
+	properties.AliasesProperty         `bson:",inline"`
+	properties.KillChainPhasesProperty `bson:",inline"`
+	ToolVersion                        string `json:"tool_version,omitempty" bson:"tool_version,omitempty"`
 }
 
 /*
