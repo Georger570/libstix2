@@ -5,8 +5,6 @@
 
 package grouping
 
-import "fmt"
-
 // ----------------------------------------------------------------------
 // Public Methods
 // ----------------------------------------------------------------------
@@ -17,28 +15,28 @@ to make sure they are valid per the specification. It will return a boolean, an
 integer that tracks the number of problems found, and a slice of strings that
 contain the detailed results, whether good or bad.
 */
-func (o *Grouping) Valid() (bool, int, []string) {
+func (o *Grouping) Valid() (bool, int, map[string]string) {
 	problemsFound := 0
-	resultDetails := make([]string, 0)
+	resultDetails := make(map[string]string, 0)
 
 	// Check common base properties first
 	_, pBase, dBase := o.CommonObjectProperties.ValidSDO()
 	problemsFound += pBase
-	resultDetails = append(resultDetails, dBase...)
+	for key, value := range dBase {
+		resultDetails[key] = value
+	}
 
 	if o.Context == "" {
 		problemsFound++
-		str := fmt.Sprintf("-- The context property is required but missing")
-		resultDetails = append(resultDetails, str)
-	} else {
-		str := fmt.Sprintf("++ The context property is required and is present")
-		resultDetails = append(resultDetails, str)
+		resultDetails["context"] = "The context property is required but missing"
 	}
 
 	// Verify object refs property is present
 	_, pObjectRefs, dObjectRefs := o.ObjectRefsProperty.VerifyExists()
 	problemsFound += pObjectRefs
-	resultDetails = append(resultDetails, dObjectRefs...)
+	for key, value := range dObjectRefs {
+		resultDetails[key] = value
+	}
 
 	if problemsFound > 0 {
 		return false, problemsFound, resultDetails

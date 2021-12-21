@@ -45,17 +45,16 @@ object is present. It will return a boolean, an integer that tracks the number
 of problems found, and a slice of strings that contain the detailed results,
 whether good or bad.
 */
-func (o *ObjectRefsProperty) VerifyExists() (bool, int, []string) {
+func (o *ObjectRefsProperty) VerifyExists() (bool, int, map[string]string) {
 	problemsFound := 0
-	resultDetails := make([]string, 1)
+	resultDetails := make(map[string]string)
 
 	if len(o.ObjectRefs) == 0 {
 		problemsFound++
-		resultDetails[0] = fmt.Sprintf("-- The object refs property is required but missing")
+		resultDetails["object_refs"] = "The object refs property is required but missing"
 		return false, problemsFound, resultDetails
 	}
 
-	resultDetails[0] = fmt.Sprintf("++ The object refs property is required and is present")
 	return true, problemsFound, resultDetails
 }
 

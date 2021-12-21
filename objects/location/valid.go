@@ -15,14 +15,16 @@ to make sure they are valid per the specification. It will return a boolean, an
 integer that tracks the number of problems found, and a slice of strings that
 contain the detailed results, whether good or bad.
 */
-func (o *Location) Valid() (bool, int, []string) {
+func (o *Location) Valid() (bool, int, map[string]string) {
 	problemsFound := 0
-	resultDetails := make([]string, 0)
+	resultDetails := make(map[string]string)
 
 	// Check common base properties first
 	_, pBase, dBase := o.CommonObjectProperties.ValidSDO()
 	problemsFound += pBase
-	resultDetails = append(resultDetails, dBase...)
+	for key, value := range dBase {
+		resultDetails[key] = value
+	}
 
 	if problemsFound > 0 {
 		return false, problemsFound, resultDetails

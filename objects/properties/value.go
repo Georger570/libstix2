@@ -5,8 +5,6 @@
 
 package properties
 
-import "fmt"
-
 // ----------------------------------------------------------------------
 // Define Types
 // ----------------------------------------------------------------------
@@ -40,16 +38,14 @@ is present. It will return a boolean, an integer that tracks the number of
 problems found, and a slice of strings that contain the detailed results,
 whether good or bad.
 */
-func (o *ValueProperty) VerifyExists() (bool, int, []string) {
+func (o *ValueProperty) VerifyExists() (bool, int, map[string]string) {
 	problemsFound := 0
-	resultDetails := make([]string, 1)
+	resultDetails := make(map[string]string)
 
 	if o.Value == "" {
 		problemsFound++
-		resultDetails[0] = fmt.Sprintf("-- The value property is required but missing")
+		resultDetails["value"] = "The value property is required but missing"
 		return false, problemsFound, resultDetails
 	}
-
-	resultDetails[0] = fmt.Sprintf("++ The value property is required and is present")
 	return true, problemsFound, resultDetails
 }
