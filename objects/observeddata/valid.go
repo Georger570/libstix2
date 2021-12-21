@@ -5,8 +5,6 @@
 
 package observeddata
 
-import "fmt"
-
 // ----------------------------------------------------------------------
 // Public Methods
 // ----------------------------------------------------------------------
@@ -17,43 +15,33 @@ to make sure they are valid per the specification. It will return a boolean, an
 integer that tracks the number of problems found, and a slice of strings that
 contain the detailed results, whether good or bad.
 */
-func (o *ObservedData) Valid() (bool, int, []string) {
+func (o *ObservedData) Valid() (bool, int, map[string]string) {
 	problemsFound := 0
-	resultDetails := make([]string, 0)
+	resultDetails := make(map[string]string)
 
 	// Check common base properties first
 	_, pBase, dBase := o.CommonObjectProperties.ValidSDO()
 	problemsFound += pBase
-	resultDetails = append(resultDetails, dBase...)
+	for key, value := range dBase {
+		resultDetails[key] = value
+	}
 
 	// Verify First Observed property is present
 	if o.FirstObserved == "" {
 		problemsFound++
-		str := fmt.Sprintf("-- The first observed property is required but missing")
-		resultDetails = append(resultDetails, str)
-	} else {
-		str := fmt.Sprintf("++ The first observed property is required and is present")
-		resultDetails = append(resultDetails, str)
+		resultDetails["first_observed"] = "The first observed property is required but missing"
 	}
 
 	// Verify Last Observed property is present
 	if o.LastObserved == "" {
 		problemsFound++
-		str := fmt.Sprintf("-- The last observed property is required but missing")
-		resultDetails = append(resultDetails, str)
-	} else {
-		str := fmt.Sprintf("++ The last observed property is required and is present")
-		resultDetails = append(resultDetails, str)
+		resultDetails["last_observed"] = "The last observed property is required but missing"
 	}
 
 	// Verify Number Observed property is present
 	if o.NumberObserved == 0 {
 		problemsFound++
-		str := fmt.Sprintf("-- The number observed property is required and is missing or set to zero")
-		resultDetails = append(resultDetails, str)
-	} else {
-		str := fmt.Sprintf("++ The number observed property is required and is present")
-		resultDetails = append(resultDetails, str)
+		resultDetails["number_observed"] = "The number observed property is required and is missing or set to zero"
 	}
 
 	if problemsFound > 0 {

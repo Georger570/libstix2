@@ -5,8 +5,6 @@
 
 package relationship
 
-import "fmt"
-
 // ----------------------------------------------------------------------
 // Public Methods
 // ----------------------------------------------------------------------
@@ -17,43 +15,33 @@ to make sure they are valid per the specification. It will return a boolean, an
 integer that tracks the number of problems found, and a slice of strings that
 contain the detailed results, whether good or bad.
 */
-func (o *Relationship) Valid() (bool, int, []string) {
+func (o *Relationship) Valid() (bool, int, map[string]string) {
 	problemsFound := 0
-	resultDetails := make([]string, 0)
+	resultDetails := make(map[string]string)
 
 	// Check common base properties first
 	_, pBase, dBase := o.CommonObjectProperties.ValidSDO()
 	problemsFound += pBase
-	resultDetails = append(resultDetails, dBase...)
+	for key, value := range dBase {
+		resultDetails[key] = value
+	}
 
 	// Verify relationship type property is present
 	if o.RelationshipType == "" {
 		problemsFound++
-		str := fmt.Sprintf("-- The relationship type property is required but missing")
-		resultDetails = append(resultDetails, str)
-	} else {
-		str := fmt.Sprintf("++ The relationship type property is required and is present")
-		resultDetails = append(resultDetails, str)
+		resultDetails["relationship_type"] = "The relationship type property is required but missing"
 	}
 
 	// Verify source ref property is present
 	if o.SourceRef == "" {
 		problemsFound++
-		str := fmt.Sprintf("-- The source ref property is required but missing")
-		resultDetails = append(resultDetails, str)
-	} else {
-		str := fmt.Sprintf("++ The source ref property is required and is present")
-		resultDetails = append(resultDetails, str)
+		resultDetails["source_ref"] = "The source ref property is required but missing"
 	}
 
 	// Verify target ref property is present
 	if o.TargetRef == "" {
 		problemsFound++
-		str := fmt.Sprintf("-- The target ref property is required but missing")
-		resultDetails = append(resultDetails, str)
-	} else {
-		str := fmt.Sprintf("++ The target ref property is required and is present")
-		resultDetails = append(resultDetails, str)
+		resultDetails["target_ref"] = "The target ref property is required but missing"
 	}
 
 	if problemsFound > 0 {

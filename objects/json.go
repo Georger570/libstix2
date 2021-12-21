@@ -31,8 +31,10 @@ func DecodeType(data []byte) (string, error) {
 	}
 
 	// This will call the Valid function on the TypeProperty type
-	if valid, _, details := o.VerifyExists(); valid != true {
-		return "", errors.New(details[0])
+	if valid, _, details := o.VerifyExists(); !valid {
+		for _, value := range details {
+			return "", errors.New(value)
+		}
 	}
 
 	return o.ObjectType, nil

@@ -5,8 +5,6 @@
 
 package report
 
-import "fmt"
-
 // ----------------------------------------------------------------------
 // Public Methods
 // ----------------------------------------------------------------------
@@ -17,43 +15,41 @@ to make sure they are valid per the specification. It will return a boolean, an
 integer that tracks the number of problems found, and a slice of strings that
 contain the detailed results, whether good or bad.
 */
-func (o *Report) Valid() (bool, int, []string) {
+func (o *Report) Valid() (bool, int, map[string]string) {
 	problemsFound := 0
-	resultDetails := make([]string, 0)
+	resultDetails := make(map[string]string)
 
 	// Check common base properties first
 	_, pBase, dBase := o.CommonObjectProperties.ValidSDO()
 	problemsFound += pBase
-	resultDetails = append(resultDetails, dBase...)
+	for key, value := range dBase {
+		resultDetails[key] = value
+	}
 
 	// Verify object Name property is present
 	_, pName, dName := o.NameProperty.VerifyExists()
 	problemsFound += pName
-	resultDetails = append(resultDetails, dName...)
+	for key, value := range dName {
+		resultDetails[key] = value
+	}
 
 	// Verify report types
 	if len(o.ReportTypes) == 0 {
 		problemsFound++
-		str := fmt.Sprintf("-- The report types property is required but missing")
-		resultDetails = append(resultDetails, str)
-	} else {
-		str := fmt.Sprintf("++ The report types property is required and is present")
-		resultDetails = append(resultDetails, str)
+		resultDetails["report_types"] = "The report types property is required but missing"
 	}
 
 	if o.Published == "" {
 		problemsFound++
-		str := fmt.Sprintf("-- The published property is required but missing")
-		resultDetails = append(resultDetails, str)
-	} else {
-		str := fmt.Sprintf("++ The published property is required and is present")
-		resultDetails = append(resultDetails, str)
+		resultDetails["published"] = "The published property is required but missing"
 	}
 
 	// Verify object refs property is present
 	_, pObjectRefs, dObjectRefs := o.ObjectRefsProperty.VerifyExists()
 	problemsFound += pObjectRefs
-	resultDetails = append(resultDetails, dObjectRefs...)
+	for key, value := range dObjectRefs {
+		resultDetails[key] = value
+	}
 
 	if problemsFound > 0 {
 		return false, problemsFound, resultDetails
