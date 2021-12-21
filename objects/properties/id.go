@@ -94,18 +94,17 @@ present if required. It will return a boolean, an integer that tracks the number
 of problems found, and a slice of strings that contain the detailed results,
 whether good or bad.
 */
-func (o *IDProperty) VerifyExists() (bool, int, []string) {
+func (o *IDProperty) VerifyExists() (bool, int, map[string]string) {
+	valid := true
 	problemsFound := 0
-	resultDetails := make([]string, 1)
+	resultDetails := make(map[string]string)
 
 	if o.ID == "" {
+		valid = false
 		problemsFound++
-		resultDetails[0] = fmt.Sprintf("-- The id property is required but missing")
-		return false, problemsFound, resultDetails
+		resultDetails = map[string]string{"id": "The id property is required but missing"}
 	}
-
-	resultDetails[0] = fmt.Sprintf("++ The id property is required and is present")
-	return true, problemsFound, resultDetails
+	return valid, problemsFound, resultDetails
 }
 
 /*

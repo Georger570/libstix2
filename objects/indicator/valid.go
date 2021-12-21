@@ -6,7 +6,6 @@
 package indicator
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/RegularITCat/libstix2/timestamp"
@@ -22,80 +21,59 @@ to make sure they are valid per the specification. It will return a boolean, an
 integer that tracks the number of problems found, and a slice of strings that
 contain the detailed results, whether good or bad.
 */
-func (o *Indicator) Valid() (bool, int, []string) {
+func (o *Indicator) Valid() (bool, int, map[string]string) {
+	result := true
 	problemsFound := 0
-	resultDetails := make([]string, 0)
+	resultDetails := make(map[string]string)
 
 	// Check common base properties first
-	_, pBase, dBase := o.CommonObjectProperties.ValidSDO()
-	problemsFound += pBase
-	resultDetails = append(resultDetails, dBase...)
+	if vBase, pBase, dBase := o.CommonObjectProperties.ValidSDO(); vBase {
+		problemsFound += pBase
+		for key, value := range dBase {
+			resultDetails[key] = value
+		}
+	}
 
 	if len(o.IndicatorTypes) == 0 {
 		problemsFound++
-		str := fmt.Sprintf("-- The indicator types property is required but missing")
-		resultDetails = append(resultDetails, str)
-	} else {
-		str := fmt.Sprintf("++ The indicator types property is required and is present")
-		resultDetails = append(resultDetails, str)
+		resultDetails["indicator_types"] = "The indicator types property is required but missing"
 	}
 
 	if o.Pattern == "" {
 		problemsFound++
-		str := fmt.Sprintf("-- The pattern property is required but missing")
-		resultDetails = append(resultDetails, str)
-	} else {
-		str := fmt.Sprintf("++ The pattern property is required and is present")
-		resultDetails = append(resultDetails, str)
+		resultDetails["pattern"] = "The pattern property is required but missing"
 	}
-
 	// TODO, check value to see if it comes from open vocabulary
 	if o.PatternType == "" {
 		problemsFound++
-		str := fmt.Sprintf("-- The pattern type property is required but missing")
-		resultDetails = append(resultDetails, str)
-	} else {
-		str := fmt.Sprintf("++ The pattern type property is required and is present")
-		resultDetails = append(resultDetails, str)
+		resultDetails["pattern_type"] = "The pattern type property is required but missing"
 	}
 
 	if o.ValidFrom == "" {
 		problemsFound++
-		str := fmt.Sprintf("-- The valid from property is required but missing")
-		resultDetails = append(resultDetails, str)
-	} else {
-		str := fmt.Sprintf("++ The valid from property is required and is present")
-		resultDetails = append(resultDetails, str)
-	}
+		resultDetails["valid_from"] = "The valid from property is required but missing"
 
-	if valid := timestamp.Valid(o.ValidFrom); valid == false {
+	} else if valid := timestamp.Valid(o.ValidFrom); !valid {
 		problemsFound++
-		str := fmt.Sprintf("-- the valid from property does not contain a valid STIX timestamp")
-		resultDetails = append(resultDetails, str)
-	} else {
-		str := fmt.Sprintf("++ the valid from property does contain a valid STIX timestamp")
-		resultDetails = append(resultDetails, str)
+		resultDetails["valid_from"] = "The valid from property does not contain a valid STIX timestamp"
 	}
 
-	if valid := timestamp.Valid(o.ValidUntil); valid == false {
+	if o.ValidUntil != "" && !timestamp.Valid(o.ValidUntil) {
 		problemsFound++
-		str := fmt.Sprintf("-- the valid until property does not contain a valid STIX timestamp")
-		resultDetails = append(resultDetails, str)
+		resultDetails["valid_until"] = "The valid until property does not contain a valid STIX timestamp"
+
 	} else {
-		str := fmt.Sprintf("++ the valid until property does contain a valid STIX timestamp")
-		resultDetails = append(resultDetails, str)
+		validFrom, _ := time.Parse(time.RFC3339, o.ValidFrom)
+		validUntil, _ := time.Parse(time.RFC3339, o.ValidUntil)
+		if yes := validUntil.After(validFrom); !yes {
+			problemsFound++
+			resultDetails["valid_until"] = "The valid until timestamp is not later than the valid from timestamp"
+		}
 	}
 
-	validFrom, _ := time.Parse(time.RFC3339, o.ValidFrom)
-	validUntil, _ := time.Parse(time.RFC3339, o.ValidUntil)
-	if yes := validUntil.After(validFrom); yes != true {
-		problemsFound++
-		str := fmt.Sprintf("-- the valid until timestamp is not later than the valid from timestamp")
-		resultDetails = append(resultDetails, str)
-	} else {
-		str := fmt.Sprintf("++ the valid until timestamp is later than the valid from timestamp")
-		resultDetails = append(resultDetails, str)
+	if problemsFound > 0 {
+		result = false
 	}
 
-	return true, 0, resultDetails
+	return result, problemsFound, resultDetails
 }
